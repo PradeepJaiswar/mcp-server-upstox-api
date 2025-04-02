@@ -74,6 +74,24 @@ if (process.argv.includes(CLI_FLAGS.SERVER) || process.argv.includes(CLI_FLAGS.S
     }
   });
   
+  // Get long-term holdings endpoint
+  app.get(ENDPOINTS.LONG_TERM_HOLDINGS, async (req, res) => {
+    try {
+      const holdingsResponse = await upstoxService.getLongTermHoldings();
+      res.json(holdingsResponse);
+    } catch (error) {
+      res.status(500).json({
+        status: API_RESPONSE_STATUS.ERROR,
+        errors: [{
+          error_code: ERROR_CODES.INTERNAL_SERVER_ERROR,
+          message: error instanceof Error ? error.message : String(error),
+          property_path: null,
+          invalid_value: null
+        }]
+      });
+    }
+  });
+  
   // Generic command endpoint
   app.post('/:command', async (req, res) => {
     const command = req.params.command;
@@ -88,6 +106,9 @@ if (process.argv.includes(CLI_FLAGS.SERVER) || process.argv.includes(CLI_FLAGS.S
         const segment = params.segment;
         const fundsMargin = await upstoxService.getFundsAndMargin(segment);
         res.json(fundsMargin);
+      } else if (command === 'long-term-holdings') {
+        const holdings = await upstoxService.getLongTermHoldings();
+        res.json(holdings);
       } else {
         res.status(404).json({ 
           status: API_RESPONSE_STATUS.ERROR,

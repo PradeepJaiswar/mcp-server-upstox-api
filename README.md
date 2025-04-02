@@ -40,7 +40,17 @@ Your MCP server will be running at `http://localhost:3000` (or your specified PO
 In your Claude conversation, you can reference this MCP server to interact with the Upstox API:
 
 ```
+# Profile information
 Use the MCP server at http://localhost:3000 to fetch my Upstox profile information.
+
+# Funds and margin details
+Use the MCP server at http://localhost:3000 to get my Upstox funds and margin details.
+
+# Funds for a specific segment
+Use the MCP server at http://localhost:3000 to get my Upstox funds for the SEC segment.
+
+# Long-term holdings
+Use the MCP server at http://localhost:3000 to fetch my Upstox long-term holdings portfolio.
 ```
 
 ## Available Endpoints
@@ -49,6 +59,7 @@ Use the MCP server at http://localhost:3000 to fetch my Upstox profile informati
 |----------|--------|-------------|
 | `/get-profile` | GET | Fetch user profile information |
 | `/get-funds-margin` | GET | Get funds and margin details (optional query param: `segment`) |
+| `/long-term-holdings` | GET | Fetch long-term holdings portfolio information |
 
 ## CLI Examples
 
@@ -63,6 +74,9 @@ npm start get-funds-margin
 
 # Get funds for specific segment (SEC = equity, COM = commodity)
 npm start get-funds-margin --segment SEC
+
+# Get long-term holdings
+npm start long-term-holdings
 ```
 
 ## Example Client Code

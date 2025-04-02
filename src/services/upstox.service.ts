@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { config } from '../config';
-import { UserProfile, UpstoxResponse, UpstoxErrorResponse, UpstoxSuccessResponse, FundsAndMargin } from '../models';
+import { UserProfile, UpstoxResponse, UpstoxErrorResponse, UpstoxSuccessResponse, FundsAndMargin, LongTermHoldings } from '../models';
 import { API_RESPONSE_STATUS, ERROR_CODES, ERROR_MESSAGES, HTTP_HEADERS, CONTENT_TYPES, UPSTOX_API, SEGMENT_TYPES } from '../constants';
 
 /**
@@ -124,6 +124,67 @@ export class UpstoxService {
           invalid_value: null
         }]
       };
+    }
+  }
+
+  /**
+   * Get user's long-term holdings information from Upstox API
+   * @returns Long-term holdings data with success or error response structure
+   */
+  async getLongTermHoldings(): Promise<UpstoxResponse<LongTermHoldings>> {
+    try {
+      const response = await axios.get(`${this.apiUrl}${UPSTOX_API.V2_LONG_TERM_HOLDINGS_ENDPOINT}`, {
+        headers: {
+          [HTTP_HEADERS.ACCEPT]: CONTENT_TYPES.JSON,
+          [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${this.accessToken}`
+        }
+      });
+      
+      // The Upstox API returns data in a format like { status: 'success', data: [...holdings] }
+      if (response.data && response.data.status === API_RESPONSE_STATUS.SUCCESS && 
+          Array.isArray(response.data.data)) {
+        // Return the response with the holdings array directly
+        return {
+          status: API_RESPONSE_STATUS.SUCCESS,
+          data: response.data.data
+        } as UpstoxSuccessResponse<LongTermHoldings>;
+      } else {
+        // If the response structure is different than expected, return it as is
+        return {
+          status: API_RESPONSE_STATUS.SUCCESS,
+          data: response.data
+        } as UpstoxSuccessResponse<LongTermHoldings>;
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        // If the error response is already in our expected format, return it directly
+        if (error.response.data?.status === API_RESPONSE_STATUS.ERROR && 
+            error.response.data?.errors) {
+          return error.response.data as UpstoxErrorResponse;
+        }
+        
+        // Otherwise, standardize the error
+        return {
+          status: API_RESPONSE_STATUS.ERROR,
+          errors: [{
+            error_code: String(error.response.status),
+            message: error.response.statusText || ERROR_MESSAGES.API_REQUEST_FAILED,
+            property_path: null,
+            invalid_value: null
+          }]
+        } as UpstoxErrorResponse;
+      }
+      
+      // For network errors or other unexpected issues
+      return {
+        status: API_RESPONSE_STATUS.ERROR,
+        errors: [{
+          error_code: ERROR_CODES.NETWORK_ERROR,
+          message: error instanceof Error ? error.message : String(error),
+          property_path: null,
+          invalid_value: null
+        }]
+      } as UpstoxErrorResponse;
     }
   }
 }
