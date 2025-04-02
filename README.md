@@ -54,6 +54,9 @@ Use the MCP server at http://localhost:3000 to fetch my Upstox long-term holding
 
 # Short-term positions
 Use the MCP server at http://localhost:3000 to get my Upstox short-term positions.
+
+# Place an order
+Use the MCP server at http://localhost:3000 to place a buy order for 1 share of TCS on NSE at market price.
 ```
 
 ## Available Endpoints
@@ -64,6 +67,7 @@ Use the MCP server at http://localhost:3000 to get my Upstox short-term position
 | `/get-funds-margin` | GET | Get funds and margin details (optional query param: `segment`) |
 | `/long-term-holdings` | GET | Fetch long-term holdings portfolio information |
 | `/short-term-positions` | GET | Fetch short-term positions information |
+| `/place-order` | POST | Place a new order (requires order details in request body) |
 
 ## CLI Examples
 
@@ -84,6 +88,12 @@ npm start long-term-holdings
 
 # Get short-term positions
 npm start short-term-positions
+
+# Place a market buy order
+npm start place-order --instrument NSE_EQ|INE848E01016 --quantity 1 --transaction BUY
+
+# Place a limit sell order
+npm start place-order --instrument NSE_EQ|INE848E01016 --quantity 1 --transaction SELL --type LIMIT --price 500
 ```
 
 ## Example Client Code

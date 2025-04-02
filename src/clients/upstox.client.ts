@@ -1,6 +1,21 @@
 import axios from 'axios';
-import { UserProfile, UpstoxResponse, FundsAndMargin, LongTermHoldings, ShortTermPositions } from '../models';
-import { API_RESPONSE_STATUS, ENDPOINTS, HTTP_HEADERS, CONTENT_TYPES, ERROR_CODES, ERROR_MESSAGES } from '../constants';
+import { 
+  UserProfile, 
+  UpstoxResponse, 
+  FundsAndMargin, 
+  LongTermHoldings, 
+  ShortTermPositions,
+  PlaceOrderRequest,
+  PlaceOrderResponse
+} from '../models';
+import { 
+  API_RESPONSE_STATUS, 
+  ENDPOINTS, 
+  HTTP_HEADERS, 
+  CONTENT_TYPES, 
+  ERROR_CODES, 
+  ERROR_MESSAGES 
+} from '../constants';
 
 /**
  * UpstoxClient - Client for interacting with the MCP server's Upstox API endpoints
@@ -172,6 +187,58 @@ export class UpstoxClient {
           [HTTP_HEADERS.ACCEPT]: CONTENT_TYPES.JSON,
         }
       });
+      
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        // If the error response is already in our expected format, return it directly
+        if (error.response.data?.status === API_RESPONSE_STATUS.ERROR && 
+            error.response.data?.errors) {
+          return error.response.data;
+        }
+        
+        // Otherwise, standardize the error
+        return {
+          status: 'error',
+          errors: [{
+            error_code: String(error.response.status),
+            message: error.response.statusText || ERROR_MESSAGES.API_REQUEST_FAILED,
+            property_path: null,
+            invalid_value: null
+          }]
+        };
+      }
+      
+      // For network errors or other unexpected issues
+      return {
+        status: 'error',
+        errors: [{
+          error_code: ERROR_CODES.NETWORK_ERROR,
+          message: error instanceof Error ? error.message : String(error),
+          property_path: null,
+          invalid_value: null
+        }]
+      };
+    }
+  }
+
+  /**
+   * Place an order on Upstox via the MCP server
+   * @param orderRequest The order details including instrument, quantity, etc.
+   * @returns Order response data with standardized response structure
+   */
+  async placeOrder(orderRequest: PlaceOrderRequest): Promise<UpstoxResponse<PlaceOrderResponse>> {
+    try {
+      const response = await axios.post(
+        `${this.baseUrl}${ENDPOINTS.PLACE_ORDER}`, 
+        orderRequest,
+        {
+          headers: {
+            [HTTP_HEADERS.CONTENT_TYPE]: CONTENT_TYPES.JSON,
+            [HTTP_HEADERS.ACCEPT]: CONTENT_TYPES.JSON,
+          }
+        }
+      );
       
       return response.data;
     } catch (error) {
