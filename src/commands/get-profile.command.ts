@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import axios from 'axios';
+import { UPSTOX_API } from '../constants';
 
 // User Profile Interface
 interface UserProfile {
@@ -73,7 +74,7 @@ export class GetProfileCommand {
       .action(async () => {
         try {
           // Get configuration from environment variables
-          const apiUrl = process.env.UPSTOX_API_URL || 'https://api.upstox.com';
+          const apiUrl = UPSTOX_API.DEFAULT_URL;
           const accessToken = process.env.UPSTOX_ACCESS_TOKEN;
           
           if (!accessToken) {
@@ -98,7 +99,7 @@ export class GetProfileCommand {
    */
   private static async getProfile(apiUrl: string, accessToken: string): Promise<UpstoxResponse<UserProfile>> {
     try {
-      const response = await axios.get(`${apiUrl}/v2/user/profile`, {
+      const response = await axios.get(`${apiUrl}${UPSTOX_API.V2_PROFILE_ENDPOINT}`, {
         headers: {
           [HTTP_HEADERS.ACCEPT]: CONTENT_TYPES.JSON,
           [HTTP_HEADERS.AUTHORIZATION]: `Bearer ${accessToken}`

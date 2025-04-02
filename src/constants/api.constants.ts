@@ -4,7 +4,7 @@
 
 // Upstox API constants
 export const UPSTOX_API = {
-  DEFAULT_URL: 'https://api.upstox.com',
+  DEFAULT_URL: process.env.UPSTOX_API_URL || 'https://api.upstox.com',
   V2_PROFILE_ENDPOINT: '/v2/user/profile',
   V2_FUNDS_MARGIN_ENDPOINT: '/v2/user/get-funds-and-margin',
 };
