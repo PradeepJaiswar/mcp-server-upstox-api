@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserProfile, UpstoxResponse, FundsAndMargin, LongTermHoldings } from '../models';
+import { UserProfile, UpstoxResponse, FundsAndMargin, LongTermHoldings, ShortTermPositions } from '../models';
 import { API_RESPONSE_STATUS, ENDPOINTS, HTTP_HEADERS, CONTENT_TYPES, ERROR_CODES, ERROR_MESSAGES } from '../constants';
 
 /**
@@ -122,6 +122,52 @@ export class UpstoxClient {
   async getLongTermHoldings(): Promise<UpstoxResponse<LongTermHoldings>> {
     try {
       const response = await axios.get(`${this.baseUrl}${ENDPOINTS.LONG_TERM_HOLDINGS}`, {
+        headers: {
+          [HTTP_HEADERS.ACCEPT]: CONTENT_TYPES.JSON,
+        }
+      });
+      
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        // If the error response is already in our expected format, return it directly
+        if (error.response.data?.status === API_RESPONSE_STATUS.ERROR && 
+            error.response.data?.errors) {
+          return error.response.data;
+        }
+        
+        // Otherwise, standardize the error
+        return {
+          status: 'error',
+          errors: [{
+            error_code: String(error.response.status),
+            message: error.response.statusText || ERROR_MESSAGES.API_REQUEST_FAILED,
+            property_path: null,
+            invalid_value: null
+          }]
+        };
+      }
+      
+      // For network errors or other unexpected issues
+      return {
+        status: 'error',
+        errors: [{
+          error_code: ERROR_CODES.NETWORK_ERROR,
+          message: error instanceof Error ? error.message : String(error),
+          property_path: null,
+          invalid_value: null
+        }]
+      };
+    }
+  }
+
+  /**
+   * Get user's short-term positions information from Upstox via the MCP server
+   * @returns Short-term positions data with standardized response structure
+   */
+  async getShortTermPositions(): Promise<UpstoxResponse<ShortTermPositions>> {
+    try {
+      const response = await axios.get(`${this.baseUrl}${ENDPOINTS.SHORT_TERM_POSITIONS}`, {
         headers: {
           [HTTP_HEADERS.ACCEPT]: CONTENT_TYPES.JSON,
         }

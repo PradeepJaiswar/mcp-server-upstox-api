@@ -51,6 +51,9 @@ Use the MCP server at http://localhost:3000 to get my Upstox funds for the SEC s
 
 # Long-term holdings
 Use the MCP server at http://localhost:3000 to fetch my Upstox long-term holdings portfolio.
+
+# Short-term positions
+Use the MCP server at http://localhost:3000 to get my Upstox short-term positions.
 ```
 
 ## Available Endpoints
@@ -60,6 +63,7 @@ Use the MCP server at http://localhost:3000 to fetch my Upstox long-term holding
 | `/get-profile` | GET | Fetch user profile information |
 | `/get-funds-margin` | GET | Get funds and margin details (optional query param: `segment`) |
 | `/long-term-holdings` | GET | Fetch long-term holdings portfolio information |
+| `/short-term-positions` | GET | Fetch short-term positions information |
 
 ## CLI Examples
 
@@ -77,6 +81,9 @@ npm start get-funds-margin --segment SEC
 
 # Get long-term holdings
 npm start long-term-holdings
+
+# Get short-term positions
+npm start short-term-positions
 ```
 
 ## Example Client Code
