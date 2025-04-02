@@ -1,66 +1,19 @@
 import { Command } from 'commander';
 import axios from 'axios';
-import { UPSTOX_API } from '../constants';
-
-// User Profile Interface
-interface UserProfile {
-  user_id: string;
-  user_name: string;
-  email: string;
-  phone: string;
-  exchanges: string[];
-  products: string[];
-  broker: string;
-  enabled_exchanges: string[];
-  enabled_products: string[];
-  is_active: boolean;
-  user_type: string;
-  poa: boolean;
-  is_logging_enabled: boolean;
-}
-
-// Response Types
-interface UpstoxSuccessResponse<T> {
-  status: 'success';
-  data: T;
-}
-
-interface UpstoxErrorResponse {
-  status: 'error';
-  errors: Array<{
-    error_code: string;
-    message: string;
-    property_path: string | null;
-    invalid_value: string | null;
-  }>;
-}
-
-type UpstoxResponse<T> = UpstoxSuccessResponse<T> | UpstoxErrorResponse;
-
-// Constants
-const API_RESPONSE_STATUS = {
-  SUCCESS: 'success',
-  ERROR: 'error',
-};
-
-const HTTP_HEADERS = {
-  ACCEPT: 'Accept',
-  AUTHORIZATION: 'Authorization',
-  CONTENT_TYPE: 'Content-Type',
-};
-
-const CONTENT_TYPES = {
-  JSON: 'application/json',
-};
-
-const ERROR_CODES = {
-  NETWORK_ERROR: 'NETWORK_ERROR',
-};
-
-const ERROR_MESSAGES = {
-  API_REQUEST_FAILED: 'API request failed',
-  UPSTOX_TOKEN_NOT_SET: 'UPSTOX_ACCESS_TOKEN is not set in environment variables',
-};
+import { 
+  UPSTOX_API, 
+  API_RESPONSE_STATUS, 
+  HTTP_HEADERS, 
+  CONTENT_TYPES, 
+  ERROR_CODES, 
+  ERROR_MESSAGES 
+} from '../constants';
+import { 
+  UserProfile, 
+  UpstoxResponse, 
+  UpstoxSuccessResponse, 
+  UpstoxErrorResponse 
+} from '../models';
 
 /**
  * GetProfileCommand - Implements the get-profile command to fetch user profile from Upstox API

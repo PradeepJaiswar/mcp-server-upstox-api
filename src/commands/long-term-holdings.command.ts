@@ -1,74 +1,14 @@
-// filepath: /Users/pradeepjaiswar/workspace/mcp-server-upstox-api/src/commands/long-term-holdings.command.ts
 import { Command } from 'commander';
 import axios from 'axios';
-import { UPSTOX_API } from '../constants';
-
-// Holding Interface
-interface Holding {
-  isin: string;
-  cnc_used_quantity: number;
-  collateral_type: string;
-  company_name: string;
-  haircut: number;
-  product: string;
-  quantity: number;
-  trading_symbol: string;
-  tradingsymbol: string;
-  last_price: number;
-  close_price: number;
-  pnl: number;
-  day_change: number;
-  day_change_percentage: number;
-  instrument_token: string;
-  average_price: number;
-  collateral_quantity: number;
-  collateral_update_quantity: number;
-  t1_quantity: number;
-  exchange: string;
-}
-
-// Response Types
-interface UpstoxSuccessResponse<T> {
-  status: 'success';
-  data: T;
-}
-
-interface UpstoxErrorResponse {
-  status: 'error';
-  errors: Array<{
-    error_code: string;
-    message: string;
-    property_path: string | null;
-    invalid_value: string | null;
-  }>;
-}
-
-type UpstoxResponse<T> = UpstoxSuccessResponse<T> | UpstoxErrorResponse;
-
-// Constants
-const API_RESPONSE_STATUS = {
-  SUCCESS: 'success',
-  ERROR: 'error',
-};
-
-const HTTP_HEADERS = {
-  ACCEPT: 'Accept',
-  AUTHORIZATION: 'Authorization',
-  CONTENT_TYPE: 'Content-Type',
-};
-
-const CONTENT_TYPES = {
-  JSON: 'application/json',
-};
-
-const ERROR_CODES = {
-  NETWORK_ERROR: 'NETWORK_ERROR',
-};
-
-const ERROR_MESSAGES = {
-  API_REQUEST_FAILED: 'API request failed',
-  UPSTOX_TOKEN_NOT_SET: 'UPSTOX_ACCESS_TOKEN is not set in environment variables',
-};
+import { 
+  UPSTOX_API, 
+  API_RESPONSE_STATUS, 
+  HTTP_HEADERS, 
+  CONTENT_TYPES, 
+  ERROR_CODES, 
+  ERROR_MESSAGES 
+} from '../constants';
+import { Holding, UpstoxResponse, UpstoxSuccessResponse, UpstoxErrorResponse } from '../models';
 
 /**
  * LongTermHoldingsCommand - Implements the long-term-holdings command to fetch user's long-term holdings from Upstox API

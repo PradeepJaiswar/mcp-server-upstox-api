@@ -1,32 +1,14 @@
 import { Command } from 'commander';
 import axios from 'axios';
-import { UPSTOX_API } from '../constants';
+import { 
+  UPSTOX_API, 
+  API_RESPONSE_STATUS, 
+  HTTP_HEADERS, 
+  CONTENT_TYPES, 
+  ERROR_CODES, 
+  ERROR_MESSAGES 
+} from '../constants';
 import { ShortTermPosition, UpstoxResponse } from '../models';
-
-// Constants
-const API_RESPONSE_STATUS = {
-  SUCCESS: 'success',
-  ERROR: 'error',
-};
-
-const HTTP_HEADERS = {
-  ACCEPT: 'Accept',
-  AUTHORIZATION: 'Authorization',
-  CONTENT_TYPE: 'Content-Type',
-};
-
-const CONTENT_TYPES = {
-  JSON: 'application/json',
-};
-
-const ERROR_CODES = {
-  NETWORK_ERROR: 'NETWORK_ERROR',
-};
-
-const ERROR_MESSAGES = {
-  API_REQUEST_FAILED: 'API request failed',
-  UPSTOX_TOKEN_NOT_SET: 'UPSTOX_ACCESS_TOKEN is not set in environment variables',
-};
 
 /**
  * ShortTermPositionsCommand - Implements the short-term-positions command to fetch user's short-term positions from Upstox API
