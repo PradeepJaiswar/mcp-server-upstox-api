@@ -17,8 +17,6 @@ cd mcp-server-upstox-api
 npm install
 ```
 
-# Optional - defaults to 3000
-PORT=3000
 ```
 
 ### Run the Server
@@ -28,7 +26,7 @@ To start the MCP server:
 npm start
 ```
 
-Your MCP server will be running at `http://localhost:3000` (or your specified PORT).
+Your MCP server will be running at `http://localhost:8787` (or your specified PORT).
 
 ## Using with Claude
 
@@ -36,7 +34,7 @@ In your Claude conversation, you can reference this MCP server to interact with 
 
 ```
 # Profile information
-Use the MCP server at http://localhost:3000 to fetch my Upstox profile information.
+Use the MCP server at http://localhost:8787 to fetch my Upstox profile information.
 
 ```
 
