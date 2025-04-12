@@ -17,8 +17,6 @@ cd mcp-server-upstox-api
 npm install
 ```
 
-```
-
 ### Run the Server
 
 To start the MCP server:
@@ -36,10 +34,15 @@ In your Claude conversation, you can reference this MCP server to interact with 
 # Profile information
 Use the MCP server at http://localhost:8787 to fetch my Upstox profile information.
 
+# Funds and Margin information
+Use the MCP server at http://localhost:8787 to fetch my Upstox funds and margin information.
 ```
 
 ## Available Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/get-profile` | GET | Fetch user profile 
+| `/get-profile` | GET | Fetch user profile information |
+| `/get-funds-margin` | GET | Fetch user funds and margin information. Optional segment parameter can be 'SEC' (Equity) or 'COM' (Commodity) |
+
+

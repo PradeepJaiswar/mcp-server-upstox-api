@@ -30,7 +30,7 @@ interface UpstoxProfileResponse {
   };
 }
 
-export const getProfileHandler: ToolHandler<GetProfileArgs> = async (args: GetProfileArgs): Promise<ToolResponse> => {
+export const getProfileHandler: ToolHandler<GetProfileArgs> = async (args: GetProfileArgs, extra: { [key: string]: unknown }): Promise<ToolResponse> => {
   const validatedArgs = GetProfileArgsSchema.parse(args);
   
   const response = await fetch(`${UPSTOX_API_BASE_URL}${UPSTOX_API_PROFILE_ENDPOINT}`, {

@@ -1,7 +1,8 @@
 import app from "./app";
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getProfileSchema, getProfileHandler } from "./tools";
+import { getProfileSchema, getProfileHandler, getFundsMarginSchema, getFundsMarginHandler } from "./tools";
+import { GetProfileArgs, GetFundsMarginArgs } from "./types";
 
 export class MyMCP extends McpAgent {
 	server = new McpServer({
@@ -10,7 +11,12 @@ export class MyMCP extends McpAgent {
 	});
 
 	async init() {
-		this.server.tool("get-profile", getProfileSchema, getProfileHandler);
+		this.server.tool("get-profile", getProfileSchema, async (args, extra) => {
+			return getProfileHandler(args as GetProfileArgs, extra);
+		});
+		this.server.tool("get-funds-margin", getFundsMarginSchema, async (args, extra) => {
+			return getFundsMarginHandler(args as GetFundsMarginArgs, extra);
+		});
 	}
 }
 
