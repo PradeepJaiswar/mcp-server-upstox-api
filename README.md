@@ -1,6 +1,6 @@
 # mcp-server-upstox-api
 
-A simple MCP server for integrating with the Upstox trading API.
+A MCP server for integrating with the Upstox trading API.
 
 ## Quick Start
 
