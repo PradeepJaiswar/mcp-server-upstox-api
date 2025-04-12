@@ -1,8 +1,8 @@
 import app from "./app";
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getProfileSchema, getProfileHandler, getFundsMarginSchema, getFundsMarginHandler, getHoldingsSchema, getHoldingsHandler, getPositionsSchema, getPositionsHandler } from "./tools";
-import { GetProfileArgs, GetFundsMarginArgs, GetHoldingsArgs, GetPositionsArgs } from "./types";
+import { getProfileSchema, getProfileHandler, getFundsMarginSchema, getFundsMarginHandler, getHoldingsSchema, getHoldingsHandler, getPositionsSchema, getPositionsHandler, getMtfPositionsSchema, getMtfPositionsHandler } from "./tools";
+import { GetProfileArgs, GetFundsMarginArgs, GetHoldingsArgs, GetPositionsArgs, GetMtfPositionsArgs } from "./types";
 
 export class MyMCP extends McpAgent {
 	server = new McpServer({
@@ -22,6 +22,9 @@ export class MyMCP extends McpAgent {
 		});
 		this.server.tool("get-positions", getPositionsSchema, async (args, extra) => {
 			return getPositionsHandler(args as GetPositionsArgs, extra);
+		});
+		this.server.tool("get-mtf-positions", getMtfPositionsSchema, async (args, extra) => {
+			return getMtfPositionsHandler(args as GetMtfPositionsArgs, extra);
 		});
 	}
 }

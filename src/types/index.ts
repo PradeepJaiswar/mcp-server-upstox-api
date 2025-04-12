@@ -46,4 +46,8 @@ export interface GetHoldingsArgs {
 
 export interface GetPositionsArgs {
   accessToken: string;
+}
+
+export interface GetMtfPositionsArgs {
+  accessToken: string;
 } 
