@@ -42,4 +42,8 @@ export interface GetFundsMarginArgs {
 
 export interface GetHoldingsArgs {
   accessToken: string;
+}
+
+export interface GetPositionsArgs {
+  accessToken: string;
 } 
