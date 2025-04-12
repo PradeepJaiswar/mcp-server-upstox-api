@@ -38,4 +38,8 @@ export interface GetProfileArgs {
 export interface GetFundsMarginArgs {
   accessToken: string;
   segment?: 'SEC' | 'COM';
+}
+
+export interface GetHoldingsArgs {
+  accessToken: string;
 } 
