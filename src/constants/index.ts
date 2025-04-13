@@ -5,6 +5,7 @@ export const UPSTOX_API_FUNDS_MARGIN_ENDPOINT = '/v2/user/get-funds-and-margin';
 export const UPSTOX_API_HOLDINGS_ENDPOINT = '/v2/portfolio/long-term-holdings';
 export const UPSTOX_API_POSITIONS_ENDPOINT = '/v2/portfolio/short-term-positions';
 export const UPSTOX_API_MTF_POSITIONS_ENDPOINT = '/v3/portfolio/mtf-positions';
+export const UPSTOX_API_ORDER_BOOK_ENDPOINT = '/v2/order/retrieve-all';
 
 // HTTP Headers
 export const HEADERS = {

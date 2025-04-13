@@ -91,6 +91,13 @@ You can interact with the Upstox API through natural language prompts. Here are 
 - "Show me my MTF positions with their current values"
 - "What's the total MTF exposure in my account?"
 
+### Order Book
+- "Show me my current day's orders in Upstox"
+- "What are my pending orders in Upstox?"
+- "Show me my order history for today"
+- "What's the status of my recent orders?"
+- "List all my completed orders for today"
+
 ## Available Endpoints
 
 | Endpoint | Method | Description |
@@ -100,5 +107,6 @@ You can interact with the Upstox API through natural language prompts. Here are 
 | `/get-holdings` | GET | Fetch user long-term holdings information |
 | `/get-positions` | GET | Fetch user short-term positions information |
 | `/get-mtf-positions` | GET | Fetch user Margin Trade Funding (MTF) positions information |
+| `/get-order-book` | GET | Fetch user's current day orders and their status |
 
 
