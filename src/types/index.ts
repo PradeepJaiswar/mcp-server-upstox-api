@@ -50,4 +50,9 @@ export interface GetPositionsArgs {
 
 export interface GetMtfPositionsArgs {
   accessToken: string;
+}
+
+export interface GetOrderDetailsArgs {
+  accessToken: string;
+  orderId: string;
 } 

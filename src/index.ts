@@ -1,8 +1,8 @@
 import app from "./app";
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { getProfileSchema, getProfileHandler, getFundsMarginSchema, getFundsMarginHandler, getHoldingsSchema, getHoldingsHandler, getPositionsSchema, getPositionsHandler, getMtfPositionsSchema, getMtfPositionsHandler, getOrderBookSchema, getOrderBookHandler } from "./tools";
-import { GetProfileArgs, GetFundsMarginArgs, GetHoldingsArgs, GetPositionsArgs, GetMtfPositionsArgs } from "./types";
+import { getProfileSchema, getProfileHandler, getFundsMarginSchema, getFundsMarginHandler, getHoldingsSchema, getHoldingsHandler, getPositionsSchema, getPositionsHandler, getMtfPositionsSchema, getMtfPositionsHandler, getOrderBookSchema, getOrderBookHandler, getOrderDetailsSchema, getOrderDetailsHandler } from "./tools";
+import { GetProfileArgs, GetFundsMarginArgs, GetHoldingsArgs, GetPositionsArgs, GetMtfPositionsArgs, GetOrderDetailsArgs } from "./types";
 
 export class MyMCP extends McpAgent {
 	server = new McpServer({
@@ -28,6 +28,9 @@ export class MyMCP extends McpAgent {
 		});
 		this.server.tool("get-order-book", getOrderBookSchema, async (args, extra) => {
 			return getOrderBookHandler(args as { accessToken: string }, extra);
+		});
+		this.server.tool("get-order-details", getOrderDetailsSchema, async (args, extra) => {
+			return getOrderDetailsHandler(args as GetOrderDetailsArgs, extra);
 		});
 	}
 }
