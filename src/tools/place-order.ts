@@ -1,8 +1,6 @@
 import { z } from "zod";
-import { UPSTOX_API_BASE_URL } from "../constants";
+import { UPSTOX_API_BASE_URL, UPSTOX_API_PLACE_ORDER_ENDPOINT, HEADERS } from "../constants";
 import { PlaceOrderArgs, ToolResponse } from "../types";
-
-const UPSTOX_API_PLACE_ORDER_ENDPOINT = "/v2/order/place";
 
 export const placeOrderSchema = {
   accessToken: z.string().min(1, "Access token is required"),
@@ -27,7 +25,7 @@ export async function placeOrderHandler(args: PlaceOrderArgs, extra: { [key: str
     const response = await fetch(`${UPSTOX_API_BASE_URL}${UPSTOX_API_PLACE_ORDER_ENDPOINT}`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        ...HEADERS,
         Authorization: `Bearer ${validatedArgs.accessToken}`,
       },
       body: JSON.stringify({
