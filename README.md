@@ -105,6 +105,13 @@ You can interact with the Upstox API through natural language prompts. Here are 
 - "Check the execution status of order xxxxxxxxxxxxxxx"
 - "View the details of my recent order xxxxxxxxxxxxxxx"
 
+### Order History
+- "Show me the history of order ID xxxxxxxxxxxxxxx"
+- "Get all status updates for order xxxxxxxxxxxxxxx"
+- "What's the progression of order xxxxxxxxxxxxxxx"
+- "Show me all stages of order xxxxxxxxxxxxxxx"
+- "Get order history for tag xxxxxxxxxxxxxxx"
+
 ### Order Trades
 - "Show me the trades for order ID xxxxxxxxxxxxxxx"
 - "What trades were executed for order xxxxxxxxxxxxxxx"
@@ -131,6 +138,7 @@ You can interact with the Upstox API through natural language prompts. Here are 
 | `/get-order-book` | GET | Fetch user's current day orders and their status |
 | `/get-order-details` | GET | Fetch detailed information about a specific order using order ID |
 | `/get-order-trades` | GET | Fetch trades executed for a specific order using order ID |
+| `/get-order-history` | GET | Fetch order history using either order ID or tag |
 | `/get-trades` | GET | Fetch user's trades executed for the current day |
 
 

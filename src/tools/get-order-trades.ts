@@ -2,6 +2,7 @@ import { z } from "zod";
 import { ToolHandler, ToolResponse } from "./types";
 import { 
   UPSTOX_API_BASE_URL, 
+  UPSTOX_API_ORDER_TRADES_ENDPOINT,
   HEADERS,
   ERROR_MESSAGES
 } from "../constants";
@@ -38,7 +39,7 @@ export const getOrderTradesHandler: ToolHandler<{ accessToken: string; orderId: 
   const validatedArgs = GetOrderTradesArgsSchema.parse(args);
 
   const response = await fetch(
-    `${UPSTOX_API_BASE_URL}/v2/order/trades?order_id=${validatedArgs.orderId}`,
+    `${UPSTOX_API_BASE_URL}${UPSTOX_API_ORDER_TRADES_ENDPOINT}?order_id=${validatedArgs.orderId}`,
     {
       headers: {
         Accept: HEADERS.ACCEPT,

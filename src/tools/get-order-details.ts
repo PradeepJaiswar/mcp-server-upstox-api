@@ -2,6 +2,7 @@ import { z } from "zod";
 import { ToolHandler, ToolResponse } from "./types";
 import { 
   UPSTOX_API_BASE_URL, 
+  UPSTOX_API_ORDER_DETAILS_ENDPOINT,
   HEADERS,
   ERROR_MESSAGES
 } from "../constants";
@@ -51,7 +52,7 @@ interface OrderDetailsResponse {
 export const getOrderDetailsHandler: ToolHandler<{ accessToken: string; orderId: string }> = async (args: { accessToken: string; orderId: string }): Promise<ToolResponse> => {
   const validatedArgs = GetOrderDetailsArgsSchema.parse(args);
   
-  const response = await fetch(`${UPSTOX_API_BASE_URL}/v2/order/details?order_id=${validatedArgs.orderId}`, {
+  const response = await fetch(`${UPSTOX_API_BASE_URL}${UPSTOX_API_ORDER_DETAILS_ENDPOINT}?order_id=${validatedArgs.orderId}`, {
     method: "GET",
     headers: {
       "Accept": HEADERS.ACCEPT,
