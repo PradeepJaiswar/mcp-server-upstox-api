@@ -6,4 +6,5 @@ export * from "./get-positions";
 export * from "./get-mtf-positions";
 export * from "./get-order-book";
 export * from "./get-order-details";
-export * from "./get-trades"; 
+export * from "./get-trades";
+export * from "./get-order-trades"; 

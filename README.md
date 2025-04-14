@@ -105,6 +105,13 @@ You can interact with the Upstox API through natural language prompts. Here are 
 - "Check the execution status of order xxxxxxxxxxxxxxx"
 - "View the details of my recent order xxxxxxxxxxxxxxx"
 
+### Order Trades
+- "Show me the trades for order ID xxxxxxxxxxxxxxx"
+- "What trades were executed for order xxxxxxxxxxxxxxx"
+- "Get the trade details for my order xxxxxxxxxxxxxxx"
+- "List all trades associated with order xxxxxxxxxxxxxxx"
+- "Show me the execution details for order xxxxxxxxxxxxxxx"
+
 ### Trades
 - "Show me my trades for today"
 - "What trades have I executed today?"
@@ -123,6 +130,7 @@ You can interact with the Upstox API through natural language prompts. Here are 
 | `/get-mtf-positions` | GET | Fetch user Margin Trade Funding (MTF) positions information |
 | `/get-order-book` | GET | Fetch user's current day orders and their status |
 | `/get-order-details` | GET | Fetch detailed information about a specific order using order ID |
+| `/get-order-trades` | GET | Fetch trades executed for a specific order using order ID |
 | `/get-trades` | GET | Fetch user's trades executed for the current day |
 
 
